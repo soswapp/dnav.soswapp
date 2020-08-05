@@ -1,0 +1,20 @@
+{
+  "name" : "soswapp/dnav.soswapp",
+  "expression" : [
+    {
+      "regex" : "^soswapp/app.soswapp/?$",
+      "path" : "/",
+      "flag" : ["QSA","NC","L"]
+    },
+    {
+      "regex" : "^soswapp/app.soswapp/([a-zA-Z0-9\\-]{3,})/?$",
+      "path" : "/pages/$1.php",
+      "flag" : ["QSA","NC","L"]
+    },
+    {
+      "regex" : "^soswapp/app.soswapp/(.*)$",
+      "path" : "/$1",
+      "flag" : ["QSA","NC","L"]
+    }
+  ]
+}
