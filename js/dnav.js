@@ -31,6 +31,28 @@ sos.dnav = {
       });
     }
   },
+  extend : function () {
+    let xDom = $(document).find(".sos-dnav-extend");
+    let defSet = {
+      access_rank : 0,
+      strict_access : false,
+      title : "",
+      icon : "",
+      onclick : "",
+      name : "",
+      classname : ""
+    };
+    if (xDom.length > 0) {
+      xDom.each(function(_index, el) {
+        let elDataSet = $(el).data(), elData = defSet;
+        $.each(defSet, function(key, val) {
+          if (!elDataSet.hasOwnProperty(key)) elDataSet[key] = val
+        });
+        sos.dnav.navList.push(elDataSet);
+        sos.dnav.populate();
+      });
+    }
+  },
   init : function (navList) {
     if ( typeof navList == "object") {
       var valid = sos.dnav.checkNavList(navList);
