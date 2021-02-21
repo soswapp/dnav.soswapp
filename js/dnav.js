@@ -39,6 +39,7 @@ sos.dnav = {
       title : "",
       icon : "",
       onclick : "",
+      newtab : false,
       name : "",
       classname : ""
     };
@@ -92,6 +93,8 @@ sos.dnav = {
         html += '"> <a "';
         if( li.onclick !== '' || li.onclick !== undefined ){
           html += " onclick=\""+li.onclick+"\" ";
+        } if (li.newtab) {
+          html += " target=\"_blank\" ";
         }
         html += " href=\"" + li.link + "\" ";
         html += '>';
