@@ -50,7 +50,6 @@ sos.dnav = {
           if (!elDataSet.hasOwnProperty(key)) elDataSet[key] = val
         });
         sos.dnav.navList.push(elDataSet);
-        sos.dnav.populate();
       });
     }
   },
@@ -62,6 +61,7 @@ sos.dnav = {
         return false;
       }
       sos.dnav.navList = valid;
+      sos.dnav.extend();
       sos.dnav.populate();
     } else {
       sos.dnav.fetchFile(navList, sos.dnav.init);
@@ -78,36 +78,39 @@ sos.dnav = {
       var config = sos.config.dnav,
           navPos = (typeof config.pos !== 'undefined' ? config.pos : 'affix'),
           fullWidth = (parseBool(config.fullWidth) == true),
-          iconPos = config.iconPos,
-          html = '<nav id="sos-dnav" class="theme-font color color-face '+navPos+'">';
-      if( !fullWidth ){
-        html += '<div class="view-space">';
-      }
-      html += '<button class="sos-btn regular" id="sos-dnav-scroll-left"><i class="fas fa-angle-left"></i></button>';
-      html += '<button class="sos-btn regular" id="sos-dnav-scroll-right"><i class="fas fa-angle-right"></i></button>';
-      html += '<div id="sos-dnav-wrap" class="show-direction">';
-      html += '<ul>';
-      $.each(list,function(i,li){
-        html += '<li class="' + (li.classname !== undefined ? li.classname : '');
-        if( li.name == sos.config.page.name ) html += ' sos-dnav-current';
-        html += '"> <a "';
-        if( li.onclick !== '' || li.onclick !== undefined ){
-          html += " onclick=\""+li.onclick+"\" ";
-        } if (li.newtab) {
-          html += " target=\"_blank\" ";
-        }
-        html += " href=\"" + li.link + "\" ";
-        html += '>';
-        if( iconPos == 'left' ) html += li.icon + ' ';
-        html += li.title;
-        if( iconPos == 'right' ) html += (' ' +li.icon);
-        html += '</a> </li>';
-      });
-      html += '</ul> </div>';
-      if( !fullWidth ){
-        html += '</div>';
-      }
-      html += '</nav>';
+          iconPos = config.iconPos;
+      let html = `<nav id="sos-dnav" class="theme-font color color-face ${navPos}">`;
+        if (!fullWidth) html += `<div class="view-space">`;
+            html += `<button class="sos-btn regular" id="sos-dnav-scroll-left"><i class="fas fa-angle-left"></i></button>`;
+            html += `<button class="sos-btn regular" id="sos-dnav-scroll-right"><i class="fas fa-angle-right"></i></button>`;
+            html += `<div id="sos-dnav-wrap" class="show-direction">`;
+              html += `<ul>`;
+              $.each(list, function(i, li){
+                html += `<li`;
+                let cls_ls = [];
+                li.classname = li.classname.trim();
+                  if(li.classname.length && li.classname !== null) {
+                    cls_ls.push(li.classname);
+                  }
+                  if( li.name == sos.config.page.name ) cls_ls.push("sos-dnav-current");
+                  if (cls_ls.length) html += ` class="${cls_ls.join(' ')}"`;
+                html += `>`;
+                  html += `<a`;
+                    if( li.onclick !== '' && li.onclick !== undefined && li.onclick !== null ){
+                      html += ` onclick="${li.onclick}"`;
+                    } if (li.newtab == true) {
+                      html += ` target="_blank"`;
+                    }
+                    html += ` href="${li.link}"`;
+                  html += `>`;
+                  html += `${(iconPos == 'left' ? li.icon : '')} ${li.title} ${(iconPos == 'right' ? li.icon : '')}`;
+                  html += `</a>`;
+                html += `</li>`;
+              });
+              html += `</ul>`;
+            html += `</div>`;
+        if (!fullWidth) html += `</div>`;
+          html += `</nav>`;
       $('body').prepend(html);
       sos.dnav.show();
       sos.dnav.showDirection();
