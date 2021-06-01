@@ -84,7 +84,7 @@ sos.dnav = {
             html += `<button class="sos-btn regular" id="sos-dnav-scroll-left"><i class="fas fa-angle-left"></i></button>`;
             html += `<button class="sos-btn regular" id="sos-dnav-scroll-right"><i class="fas fa-angle-right"></i></button>`;
             html += `<div id="sos-dnav-wrap" class="show-direction">`;
-              html += `<ul>`;
+              html += `<ul id="nvlst">`;
               $.each(list, function(i, li){
                 html += `<li`;
                 let cls_ls = [];
@@ -106,6 +106,7 @@ sos.dnav = {
                   html += `${(iconPos == 'left' ? li.icon : '')} ${li.title} ${(iconPos == 'right' ? li.icon : '')}`;
                   html += `</a>`;
                 html += `</li>`;
+                html += `<li class="clr"></li>`;
               });
               html += `</ul>`;
             html += `</div>`;
@@ -203,7 +204,7 @@ sos.dnav = {
   showDirection : function () {
     var elem = $(document).find('#sos-dnav');
     if( elem.length > 0 ){
-      var win_width = $(window).width(),
+      var win_width = $("#sos-dnav-wrap").innerWidth(),
           nav_width = 0;
       $(document).find('#sos-dnav ul li').each(function(){
         nav_width += $(this).outerWidth();
@@ -225,7 +226,7 @@ sos.dnav = {
       navs.each(function(i){
         nav_width += $(this).outerWidth();
       });
-      $(elem).find('ul:first').width(nav_width);
+      $(document).find('#sos-dnav ul#nvlst').width(nav_width);
       sos.dnav.showDirection();
     }
   }
@@ -270,5 +271,17 @@ sos.dnav = {
   $(document).on('click','#sos-dnav #sos-dnav-scroll-right',function(){
     var pos = $('#sos-dnav #sos-dnav-wrap').scrollLeft() + 100;
     $('#sos-dnav #sos-dnav-wrap').animate({scrollLeft:pos},300);
+  });
+  $(window).bind("dnavLoaded", function(){
+    let cur_nv = $(document).find(".sos-dnav-current").eq(0);
+    if (cur_nv.length) {
+      let min_left = cur_nv.offset().left + cur_nv.outerWidth();
+      let wrpr = $(document).find("#sos-dnav-wrap");
+      if (min_left > wrpr.innerWidth()) {
+        wrpr.animate({
+          scrollLeft : min_left
+        },350);
+      }
+    }
   });
 })();

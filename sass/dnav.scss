@@ -34,6 +34,7 @@ $dnav-height : 65px;
     padding: 0 40px 0 40px;
     margin: 0;
     list-style: none;
+    height: 100%;
     li{
       float: left;
       padding: 0;
@@ -75,6 +76,12 @@ $dnav-height : 65px;
         padding-top:18.5px;
         padding-bottom:22.5px;
       }
+      &:last-child{
+        float: none;
+        margin: 0; padding: 0;
+        clear: both;
+        height: 0; width: 0;
+      }
     }
   }
   #sos-dnav-scroll-left, #sos-dnav-scroll-right{
@@ -105,13 +112,15 @@ $dnav-height : 65px;
 
 }
 #sos-dnav-wrap{
+  position: relative;
+  width: 100%;
   height: $dnav-height + 17;
   overflow: hidden;
   overflow-x: scroll;
 }
-@media only screen and (min-width: 81em) {
-  #sos-dnav.show-direction:hover #sos-dnav-scroll-left,
-  #sos-dnav.show-direction:hover #sos-dnav-scroll-right{
+@media only screen and (min-width: 62em) {
+  .show-direction:hover #sos-dnav-scroll-left,
+  .show-direction:hover #sos-dnav-scroll-right{
     display: block !important;
     opacity: 1 !important;
   }
