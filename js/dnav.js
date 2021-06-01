@@ -281,9 +281,9 @@ sos.dnav = {
         if (min_left > wrpr.innerWidth()) {
           wrpr.animate({
             scrollLeft : min_left
-          },350);
+          },550);
         }
       }
-    },5000);
+    },2500);
   });
 })();
