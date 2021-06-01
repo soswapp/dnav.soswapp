@@ -205,7 +205,7 @@ sos.dnav = {
     var elem = $(document).find('#sos-dnav');
     if( elem.length > 0 ){
       var win_width = $("#sos-dnav-wrap").innerWidth(),
-          nav_width = 50;
+          nav_width = 21;
       $(document).find('#sos-dnav ul li').each(function(){
         nav_width += $(this).outerWidth();
       });
@@ -221,7 +221,7 @@ sos.dnav = {
   width : function(){
     var elem = $(document).find('#sos-dnav');
     if( elem.length > 0 ){
-      var nav_width = 50,
+      var nav_width = 21,
           navs = $(document).find('#sos-dnav ul li');
       navs.each(function(i){
         nav_width += $(this).outerWidth();
