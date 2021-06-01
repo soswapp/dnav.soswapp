@@ -273,17 +273,15 @@ sos.dnav = {
     $('#sos-dnav #sos-dnav-wrap').animate({scrollLeft:pos},300);
   });
   $(window).bind("dnavLoaded", function(){
-    setTimeout(function(){
-      let cur_nv = $(document).find(".sos-dnav-current").eq(0);
-      if (cur_nv.length) {
-        let min_left = cur_nv.offset().left + cur_nv.outerWidth();
-        let wrpr = $(document).find("#sos-dnav-wrap");
-        if (min_left > wrpr.innerWidth()) {
-          wrpr.animate({
-            scrollLeft : min_left
-          },350);
-        }
+    let cur_nv = $(document).find(".sos-dnav-current").eq(0);
+    if (cur_nv.length) {
+      let min_left = cur_nv.offset().left + cur_nv.outerWidth();
+      let wrpr = $(document).find("#sos-dnav-wrap");
+      if (min_left > wrpr.innerWidth()) {
+        wrpr.animate({
+          scrollLeft : min_left
+        },350);
       }
-    },5000);
+    }
   });
 })();
