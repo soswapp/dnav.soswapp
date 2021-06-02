@@ -221,7 +221,7 @@ sos.dnav = {
   width : function(){
     var elem = $(document).find('#sos-dnav');
     if( elem.length > 0 ){
-      var nav_width = 21,
+      var nav_width = 7,
           navs = $(document).find('#sos-dnav ul li');
       navs.each(function(i){
         nav_width += $(this).outerWidth();
@@ -280,7 +280,7 @@ sos.dnav = {
         let wrpr = $(document).find("#sos-dnav-wrap");
         if (min_left > wrpr.innerWidth()) {
           wrpr.animate({
-            scrollLeft : min_left
+            scrollLeft : cur_nv.offset().left - wrpr.innerWidth()
           },550);
         }
       }
