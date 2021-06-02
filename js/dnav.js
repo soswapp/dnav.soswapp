@@ -280,7 +280,7 @@ sos.dnav = {
         let wrpr = $(document).find("#sos-dnav-wrap");
         if (min_left > wrpr.innerWidth()) {
           wrpr.animate({
-            scrollLeft : cur_nv.offset().left - wrpr.innerWidth()
+            scrollLeft : min_left - wrpr.innerWidth()
           },550);
         }
       }
