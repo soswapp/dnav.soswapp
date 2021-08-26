@@ -6,15 +6,28 @@ if ( typeof sos.config !== 'object' ) sos.config = {};
 if (typeof sos.config.dnav !== 'object') sos.config.dnav = {};
 sos.dnav = {
   navList : {},
+  cartValue : function (num = 0) {
+    if (typeof num == "number") {
+      num = (num < 100) ? num : `99+`;
+      $(document).find(`#sos-dnav-cartbot #sos-dnav-cartbot-val`).text(num);
+      if (num == 0) {
+        $(document).find(`#sos-dnav-cartbot`).removeClass("cb-full");
+      } else {
+        $(document).find(`#sos-dnav-cartbot`).addClass("cb-full");
+      }
+    }
+  },
   defaultSet : function () {
-    if (sos.config.dnav.iniTopPos === undefined)  sos.config.dnav.iniTopPos   = 0;
-    if (sos.config.dnav.top === undefined)        sos.config.dnav.top         = 0;
-    if (sos.config.dnav.pos === undefined)        sos.config.dnav.pos         = "affix";
-    if (sos.config.dnav.clearElem === undefined)  sos.config.dnav.clearElem   = "";
-    if (sos.config.dnav.fullWidth === undefined)  sos.config.dnav.fullWidth   = false;
-    if (sos.config.dnav.stickOn === undefined)    sos.config.dnav.stickOn     = "";
-    if (sos.config.dnav.container === undefined)  sos.config.dnav.container   = "";
-    if (sos.config.dnav.iconPos   === undefined)  sos.config.dnav.iconPos     = "left";
+    if (sos.config.dnav.iniTopPos     === undefined)  sos.config.dnav.iniTopPos     = 0;
+    if (sos.config.dnav.top           === undefined)  sos.config.dnav.top           = 0;
+    if (sos.config.dnav.pos           === undefined)  sos.config.dnav.pos           = "affix";
+    if (sos.config.dnav.clearElem     === undefined)  sos.config.dnav.clearElem     = "";
+    if (sos.config.dnav.fullWidth     === undefined)  sos.config.dnav.fullWidth     = false;
+    if (sos.config.dnav.stickOn       === undefined)  sos.config.dnav.stickOn       = "";
+    if (sos.config.dnav.container     === undefined)  sos.config.dnav.container     = "";
+    if (sos.config.dnav.iconPos       === undefined)  sos.config.dnav.iconPos       = "left";
+    if (sos.config.dnav.cartBot       === undefined)  sos.config.dnav.cartBot       = false;
+    if (sos.config.dnav.cartBotClick  === undefined)  sos.config.dnav.cartBotClick  = "";
   },
   setup : function (prop) {
     if( typeof prop == "object") {
@@ -22,7 +35,7 @@ sos.dnav = {
         if (sos.config.dnav[index] !== undefined) {
           if (index in ["iniTopPos","top"]) {
             sos.config.dnav[index] = parseInt(val);
-          } else if (index in ["fullWidth"]) {
+          } else if (index in ["fullWidth", "cartBot"]) {
             sos.config.dnav[index] = parseBool(val);
           } else {
             sos.config.dnav[index] = val;
@@ -79,7 +92,13 @@ sos.dnav = {
           navPos = (typeof config.pos !== 'undefined' ? config.pos : 'affix'),
           fullWidth = (parseBool(config.fullWidth) == true),
           iconPos = config.iconPos;
-      let html = `<nav id="sos-dnav" class="theme-font color color-face ${navPos}">`;
+      let html = `<nav id="sos-dnav" class="theme-font color color-face ${navPos} ${config.cartBot ? ' cartbot' : ''}">`;
+      if (config.cartBot) {
+        html += `<div onclick="${typeof window[config.cartBotClick] == 'function' ? window[config.cartBotClick]() : ''}" id="sos-dnav-cartbot">`;
+        html += `<span class="cb-icon"><i class="fas fa-shopping-cart"></i></span>`;
+        html += `<code id="sos-dnav-cartbot-val" class="cb-val">0</code>`;
+        html += `</div>`;
+      }
         if (!fullWidth) html += `<div class="view-space">`;
             html += `<button class="sos-btn regular" id="sos-dnav-scroll-left"><i class="fas fa-angle-left"></i></button>`;
             html += `<button class="sos-btn regular" id="sos-dnav-scroll-right"><i class="fas fa-angle-right"></i></button>`;

@@ -1,6 +1,9 @@
 /*! 7OS -Web dnav: https://github.com/soswapp/dnav.soswapp
     Requires soswapp/theme.soswapp available @ https://github.com/soswapp/theme.soswapp
 */
+$amber   :#FFC107;
+$coffee  :#45362E;
+
 @import "fn";
 $dnav-height : 65px;
 
@@ -16,6 +19,7 @@ $dnav-height : 65px;
   overflow-x: auto;
   z-index: 200;
   @include drop-shadow(#A9A9A9);
+  &.cartbot{ padding-right: 65px; }
   &.relative{ position: relative; }
   &.affix{
     position: fixed;
@@ -118,6 +122,40 @@ $dnav-height : 65px;
   overflow: hidden;
   overflow-x: scroll;
 }
+#sos-dnav-cartbot{
+  position: absolute;
+  right: 0; top: 0;
+  display: block;
+  width: 70px;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgba($coffee, 0.5);
+  text-align: center;
+  color: #000;
+  text-align: center;
+  padding: 21px 14px;
+  z-index: 20;
+  @include animate-all;
+  .cb-icon{
+    display: block;
+    width: 30px; height: 30px;
+    background-color: rgba(#000, 0.9);
+    font-size: 1em;
+    color: #FFF;
+    padding: 4.5px;
+    font-weight: bolder;
+    @include -br(21px, -bottom-right);
+    position: absolute;
+    left: 0; top: 0;
+  }
+  .cb-val{
+    font-size: 1.18em;
+    font-weight: lighter;
+  }
+}
+#sos-dnav-cartbot:hover{ opacity: 0.85; cursor: pointer;}
+#sos-dnav-cartbot.cb-full{ background-color: $amber !important; color: #000; }
+
 @media only screen and (min-width: 62em) {
   .show-direction:hover #sos-dnav-scroll-left,
   .show-direction:hover #sos-dnav-scroll-right{
