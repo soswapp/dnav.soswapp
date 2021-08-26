@@ -94,7 +94,7 @@ sos.dnav = {
           iconPos = config.iconPos;
       let html = `<nav id="sos-dnav" class="theme-font color color-face ${navPos} ${config.cartBot ? ' cartbot' : ''}">`;
       if (config.cartBot) {
-        html += `<div onclick="${typeof window[config.cartBotClick] == 'function' ? window[config.cartBotClick]() : ''}" id="sos-dnav-cartbot">`;
+        html += `<div onclick="${config.cartBotClick}${ typeof window[config.cartBotClick] == "function" ? '()' : ''}" id="sos-dnav-cartbot">`;
         html += `<span class="cb-icon"><i class="fas fa-shopping-cart"></i></span>`;
         html += `<code id="sos-dnav-cartbot-val" class="cb-val">0</code>`;
         html += `</div>`;
