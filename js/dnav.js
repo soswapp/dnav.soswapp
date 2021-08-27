@@ -26,8 +26,12 @@ sos.dnav = {
     if (sos.config.dnav.stickOn       === undefined)  sos.config.dnav.stickOn       = "";
     if (sos.config.dnav.container     === undefined)  sos.config.dnav.container     = "";
     if (sos.config.dnav.iconPos       === undefined)  sos.config.dnav.iconPos       = "left";
-    if (sos.config.dnav.cartBot       === undefined)  sos.config.dnav.cartBot       = false;
     if (sos.config.dnav.cartBotClick  === undefined)  sos.config.dnav.cartBotClick  = "";
+    if (sos.config.dnav.cartBot === undefined) {
+      sos.config.dnav.cartBot = false;
+    } else {
+      sos.config.dnav.cartBot = parseBool(sos.config.dnav.cartBot);
+    }
   },
   setup : function (prop) {
     if( typeof prop == "object") {
@@ -94,7 +98,7 @@ sos.dnav = {
           iconPos = config.iconPos;
       let html = `<nav id="sos-dnav" class="theme-font color color-face ${navPos} ${config.cartBot ? ' cartbot' : ''}">`;
       if (config.cartBot) {
-        html += `<div onclick="${config.cartBotClick}${ typeof window[config.cartBotClick] == "function" ? '()' : ''}" id="sos-dnav-cartbot">`;
+        html += `<div id="sos-dnav-cartbot">`;
         html += `<span class="cb-icon"><i class="fas fa-shopping-cart"></i></span>`;
         html += `<code id="sos-dnav-cartbot-val" class="cb-val">0</code>`;
         html += `</div>`;
@@ -304,5 +308,8 @@ sos.dnav = {
         }
       }
     },1500);
+  });
+  $(document).on("click", "#sos-dnav-cartbot.cb-full", function(){
+    if (typeof window[sos.config.dnav.cartBotClick] == "function") window[sos.config.dnav.cartBotClick]();
   });
 })();
