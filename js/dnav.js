@@ -8,6 +8,7 @@ sos.dnav = {
   navList : {},
   cartValue : function (num = 0) {
     if (typeof num == "number") {
+      window.sos.cartValue = num;
       num = (num < 100) ? num : `99+`;
       $(document).find(`#sos-dnav-cartbot #sos-dnav-cartbot-val`).text(num);
       if (num == 0) {
