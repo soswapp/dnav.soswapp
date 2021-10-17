@@ -215,6 +215,45 @@
   color: #000;
 }
 
+#sos-sidenv {
+  position: relative;
+  padding: 12px 21px;
+  max-height: 420px;
+  overflow: hidden;
+  background-color: #fafafa;
+  border: solid 1px #bdc3c7;
+  -webkit-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+}
+#sos-sidenv ul {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  list-style: none;
+}
+#sos-sidenv ul li {
+  padding: 12px 14px;
+  font-size: 1.15em;
+  border-bottom: solid 1px #bdc3c7;
+}
+#sos-sidenv ul li:last-child {
+  border: none;
+}
+#sos-sidenv ul li a {
+  display: block;
+}
+#sos-sidenv ul li.sos-sdnv-current {
+  border-left: solid 5px #bdc3c7;
+}
+#sos-sidenv ul li.sos-sdnv-current a {
+  color: #bdc3c7;
+}
+#sos-sidenv:hover {
+  overflow-y: auto;
+}
+
 @media only screen and (min-width: 62em) {
   .show-direction:hover #sos-dnav-scroll-left,
 .show-direction:hover #sos-dnav-scroll-right {

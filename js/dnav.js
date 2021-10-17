@@ -255,7 +255,41 @@ sos.dnav = {
     }
   }
 };
-
+const lsSdNv = (elem) => {
+  elem = $(elem);
+  let nvLs = sos.dnav.navList;
+  if (elem.length && nvLs.length) {
+    let htm = `<div id="sos-sidenv">`;
+      htm += `<h4> <i class="fas fa-bars"></i> Navigation</h4>`;
+      htm += `<ul>`;
+      $.each(nvLs, function(_i, li){
+        // console.log(`${li.name}/${sos.config.page.name}`);
+        htm += `<li class="${li.name == sos.config.page.name ? "sos-sdnv-current" : ""}"`;
+          let cls_ls = [];
+          li.classname = li.classname.trim();
+          if(li.classname.length && li.classname !== null) {
+            cls_ls.push(li.classname);
+          }
+          // if( li.name == sos.config.page.name ) cls_ls.push("sos-sdnv-current");
+          if (cls_ls.length) htm += ` class="${cls_ls.join(' ')}"`;
+          htm += `>`;
+            htm += `<a`;
+              if( li.onclick !== '' && li.onclick !== undefined && li.onclick !== null ){
+                htm += ` onclick="${li.onclick}"`;
+              } if (li.newtab == true) {
+                htm += ` target="_blank"`;
+              }
+              htm += ` href="${li.link}"`;
+            htm += `>`;
+            htm += `${li.icon} ${li.title}`;
+            htm += `</a>`;
+        htm += `</li>`;
+      });
+      htm += `</ul>`;
+    htm += `</div>`;
+    elem.html(htm);
+  }
+}
 (function(){
   sos.dnav.defaultSet();
   $(window).bind('resize',function(){
@@ -309,6 +343,12 @@ sos.dnav = {
         }
       }
     },1500);
+    if (
+      Object(sos.config.page).hasOwnProperty("sideNav")
+      && $(`${sos.config.page.sideNav}`).length
+    ) {
+      lsSdNv(sos.config.page.sideNav);
+    }
   });
   $(document).on("click", "#sos-dnav-cartbot.cb-full", function(){
     if (typeof window[sos.config.dnav.cartBotClick] == "function") window[sos.config.dnav.cartBotClick]();

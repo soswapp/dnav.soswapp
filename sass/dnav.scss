@@ -5,6 +5,7 @@ $amber   :#FFC107;
 $coffee  :#45362E;
 
 @import "fn";
+@import "colors";
 $dnav-height : 65px;
 
 #sos-dnav{
@@ -155,7 +156,35 @@ $dnav-height : 65px;
 }
 #sos-dnav-cartbot:hover{ opacity: 0.85; cursor: pointer;}
 #sos-dnav-cartbot.cb-full{ background-color: $amber !important; color: #000; }
-
+#sos-sidenv{
+  position: relative;
+  padding: 12px 21px;
+  max-height: 420px;
+  overflow: hidden;
+  background-color: lighten(#000,98%);
+  border: solid 1px $silver;
+  @include -br(12px);
+  ul {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    list-style: none;
+    li{
+      padding: 12px 14px;
+      font-size: 1.15em;
+      border-bottom: solid 1px $silver;
+      &:last-child{ border: none;}
+      a{ display: block;}
+      &.sos-sdnv-current{
+        border-left: solid 5px $silver;
+        a { color: $silver; }
+      }
+    }
+  }
+  &:hover{
+    overflow-y: auto;
+  }
+}
 @media only screen and (min-width: 62em) {
   .show-direction:hover #sos-dnav-scroll-left,
   .show-direction:hover #sos-dnav-scroll-right{
