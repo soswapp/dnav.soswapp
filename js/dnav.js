@@ -188,10 +188,10 @@ sos.dnav = {
           nav = $(document).find('#sos-dnav.affix').length > 0
             ? $(document).find('#sos-dnav.affix')
             : $(document).find('#sos-dnav.fixed');
+      nav.css("top",`${ptop}px`);
       nav.animate({
-        top : ptop,
         opacity : 1
-      }, 200,function(){
+      }, 450,function(){
         sos.dnav.width();
         // nav.removeClass('hidn');
         if( conf.clearElem.length > 0 ){
